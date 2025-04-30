@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from .forms import RegistrationForm
 from django.contrib import messages
@@ -151,27 +151,37 @@ def home(request):
 
 
 def addToCart(request):
-    user = request.user
-    product_id = request.GET.get('pro_id')
-    product = Product.objects.get(pk = product_id)
-  
-    for user in User.objects.all():
-        User.objects.get_or_create(user=User)
-    customer = Customer.objects.get(user=user)
-    Carts(user=customer, product=product).save()
-    return render(request, 'carts.html')
+    if request.user.is_authenticated:
+        user = request.user
+        product_id = request.GET.get('pro_id')
+        product = Product.objects.get(id = product_id)
+        for user in User.objects.all():
+            User.objects.get_or_create(username=user)
+        Carts(user=request.user, product=product).save()
+        return redirect('/')
+    else:
+        return redirect('login')
 
 
 def carts(request):
     user = request.user
-    customer = Customer.objects.get(user= user)
-    carts = Carts.objects.filter(user = customer)
-
+    cartitems = 0
+    if request.user.is_authenticated:
+        items = Carts.objects.filter(user = request.user)
+        for i in items:
+            cartitems = cartitems + 1
     total_price = 0
-    for i in carts:
+    for i in items:
         total_price += i.product.discounted_price * i.quantity
 
-    return render(request, 'carts.html', {'carts': carts, 'total':total_price})
+    return render(request, 'carts.html', {'items': items, 'cartitems':cartitems})
+
+class ProductDetails(View):
+    def get(self, request ,id):
+        product = Product.objects.get(pk = id)
+        return render(request, 'productDetails.html', {'product':product})
+
+
 
 
 def contact(request):

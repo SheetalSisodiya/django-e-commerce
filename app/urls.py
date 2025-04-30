@@ -1,9 +1,3 @@
-# from django.urls import path
-# from . import views
-
-# from django.contrib.auth import views as auth_views
-# from .forms import LoginForm
-
 from django.urls import path
 from . import views
 
@@ -22,7 +16,7 @@ urlpatterns = [
 
     path('details/<int:id>/',views.ProductDetails.as_view(), name="details"),
     path('buynow/',views.buynow, name="buynow"),
-
+    
     path('add-to-carts/', views.addToCart, name="addCart"),
     path('carts/', views.carts, name="carts"),
 

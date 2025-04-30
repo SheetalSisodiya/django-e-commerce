@@ -79,12 +79,12 @@ class Product(models.Model):
         return self.product_name
 
 class Carts(models.Model):
-    user = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
 
     def _str_(self):
-        return self.user
+        return str(self.pk)
     
 STATUS_CHOICES= (
     ('Accepted', 'Accepted'),

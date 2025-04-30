@@ -1,21 +1,22 @@
 {% extends "base.html" %}
 {% block content %}
 
-<section class="sunglasses">
+<section class="camera">
     <div class="row container">
         <div class="col-md-4">
             <div class="list-group">
                 <p>Brand</p>
-                <a href="{% url "sunglasses" 'None' %}" class="list-group-item">All</a>
-                <a href="{% url "sunglasses" 'prada' %}" class="list-group-item">Prada</a>
-                <a href="{% url "sunglasses" 'ran-ban' %}" class="list-group-item">Ran-Ban</a>
+                <a href="{% url "camera" 'None' %}" class="list-group-item">All</a>
+                <a href="{% url "camera" 'sony' %}" class="list-group-item">Sony</a>
+                <a href="{% url "camera" 'canon' %}" class="list-group-item">Canon</a>
+                <a href="{% url "camera" 'nikon' %}" class="list-group-item">Nikon</a>
                 
                
 
                 <span class="list-group-item">
                     <p>Price</p>
-                    <a href="{% url "sunglasses" 'below' %}" class="list-group-item">Below $50</a>
-                    <a href="{% url "sunglasses" 'above' %}" class="list-group-item">Above $50</a>
+                    <a href="{% url "camera" 'below' %}" class="list-group-item">Below $150</a>
+                    <a href="{% url "camera" 'above' %}" class="list-group-item">Above $50</a>
 
                 </span>
             </div>
@@ -34,7 +35,7 @@
                 <p>${{product.discounted_price}}  <small class="text-decoration-line-through">${{product.selling_price}}</small>
     
                 </p>
-                <a href="" class="btn shadow-lg btn-primary">Add to Cart</a>
+                <a href="{% url 'carts'  %}" class="btn shadow-lg btn-primary">Add to Cart</a>
                 <a href="" class="btn-danger btn shadow-lg ">Buy Now</a>
 
             </div>
